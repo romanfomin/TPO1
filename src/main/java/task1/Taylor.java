@@ -1,3 +1,5 @@
+package task1;
+
 import static java.lang.Math.*;
 
 public class Taylor {
