@@ -2,55 +2,100 @@ package task2;
 
 public class CountSort {
 
-    private short[] array;
     private StringBuffer path = new StringBuffer();
     private CountSortResult csr;
 
-    public CountSort(short[] array) {
-        this.array = array;
-        checkArray();
-    }
-
-    public short[] sort() {
-        int max = findMax();
-        int[] supporting = new int[max + 1];
-        for (int i = 0; i < array.length; i++) {
-            supporting[array[i]]++;
-            path.append("inc ");
+    public short[] sort(short[] array) {             // 8
+        if(checkArray(array)==-1){
+            csr = new CountSortResult(array, path.toString());
+            return array;
         }
+        int max = findMax(array);
+        int[] supporting = new int[max + 1];
+        for (int i = 0; i < array.length; i++) {            // 13
+            if (i > 0) {
+                path.append('p');
+            }
+            supporting[array[i]]++;
+            path.append('o');
+        }                                                   // 14
+
+        path.append('q');
+
         int pos = 0;
-        for (int i = 0; i <= max; i++) {
-            for (int j = 0; j < supporting[i]; j++) {
-                path.append("assign ");
+        for (int i = 0; i <= max; i++) {                    // 15
+            if (i > 0) {
+                path.append('w');
+            }
+            path.append('r');
+            for (int j = 0; j < supporting[i]; j++) {       // 16
+                if (j > 0) {
+                    path.append('t');
+                }
                 array[pos] = (short) i;
                 pos++;
+                path.append('s');
+            }                                               // 17
+            if (supporting[i] == 0) {
+                path.append('v');
+            } else {
+                path.append('u');
             }
-        }
-        path.append("end");
+        }                                                   // 18
+
+        path.append('x');
+
         csr = new CountSortResult(array, path.toString());
-        return array;
+        return array;                                       // 19
     }
 
-    private void checkArray() {
-        if (array == null) {
-            throw new IllegalArgumentException();
+    private int checkArray(short[] array) {                             // 2
+        path.append('a');
+        if (array == null || array.length == 0) {                                // 2
+            path.append('b');
+            return -1;
+//            throw new IllegalArgumentException();           // 3
         }
-        for (int val : array) {
-            if (val < 0) {
-                throw new IllegalArgumentException();
+        path.append('c');
+
+        for (int i = 0; i < array.length; i++) {            // 4
+            if (i > 0) {
+                path.append('g');
             }
-        }
-        path.append("checked ");
+            path.append('d');
+            if (array[i] < 0) {                             // 5
+                path.append('e');
+                return -1;
+//                throw new IllegalArgumentException();       // 6
+            }
+            path.append('f');
+        }                                                   // 7
+
+        path.append('h');
+        return 0;
     }
 
-    private int findMax() {
+    private int findMax(short[] array) {                                 // 9
+        path.append('i');
         int max = -1;
-        for (int val : array) {
-            if (val > max) {
-                max = val;
+
+        path.append('j');
+        for (int i = 0; i < array.length; i++) {            // 10
+            if (i > 0) {
+                path.append('m');
+            }
+            path.append('k');
+            if (array[i] > max) {                           // 11
+                path.append('l');
+                max = array[i];
+            }else{                                          // 12
+                path.append('y');
             }
         }
-        path.append("max=").append(max).append(" ");
+
+        path.append('n');
+
+
         return max;
     }
 

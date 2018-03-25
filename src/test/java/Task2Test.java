@@ -1,112 +1,54 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import task2.CountSort;
 import task2.CountSortResult;
 
-import java.util.Arrays;
 
 public class Task2Test {
 
-    private StringBuffer path;
+    private String pathExpected;
+    private short[] arrayExpected;
+    private short[] arrayActual;
 
-    @BeforeEach
-    public void setUp() {
-        path = new StringBuffer();
-    }
+    private void executeAndAssertEquals() {
+        CountSort countSort = new CountSort();
+        CountSortResult csrExpected = new CountSortResult(arrayExpected, pathExpected);
 
-    private void createPath(short[] arr) {
-        short max = (arr.length > 0) ? arr[arr.length - 1] : -1;
-        path.append("checked ").append("max=").append(max).append(" ");
-        for (short s : arr) {
-            path.append("inc ");
-        }
-        for (short s : arr) {
-            path.append("assign ");
-        }
-        path.append("end");
-    }
-
-    private void executeAndAssertEquals(short[] array) {
-        Arrays.sort(array);
-        createPath(array);
-        CountSortResult csrExpected = new CountSortResult(array, path.toString());
-
-        CountSort countSort = new CountSort(array);
-        countSort.sort();
+        countSort.sort(arrayActual);
         CountSortResult csrActual = countSort.getCsr();
 
         Assertions.assertEquals(csrExpected, csrActual);
     }
 
     @Test
-    @DisplayName("small sorted")
+    @DisplayName("1-3")
     public void testMethod1() {
-        short[] array = {0, 1, 1, 5};
-        executeAndAssertEquals(array);
+        arrayActual = new short[]{};
+        arrayExpected = arrayActual;
+        pathExpected = "ab";
+
+        executeAndAssertEquals();
     }
 
     @Test
-    @DisplayName("small not sorted")
+    @DisplayName("1-6")
     public void testMethod2() {
-        short[] array = {3, 1, 0, 3};
-        executeAndAssertEquals(array);
+        arrayActual = new short[]{4, -1};
+        arrayExpected = arrayActual;
+        pathExpected = "acdfgde";
+
+        executeAndAssertEquals();
     }
 
+
     @Test
-    @DisplayName("one value")
+    @DisplayName("1-6")
     public void testMethod3() {
-        short[] array = {5};
-        executeAndAssertEquals(array);
-    }
+        arrayActual = new short[]{2, 1, 1};
+        arrayExpected = new short[]{1, 1, 2};
+        pathExpected = "acdfgdfgdfhijklmkymkynopopoqrvwrstsuwrsux";
 
-    @Test
-    @DisplayName("large sorted")
-    public void testMethod4() {
-        short[] array = {1, 3, 6, 12, 23, 45, 68, 99, 123, 233, 443, 536, 4444, 7688, 7989};
-        executeAndAssertEquals(array);
-    }
-
-    @Test
-    @DisplayName("large not sorted")
-    public void testMethod5() {
-        short[] array = {3, 1, 7989, 12, 536, 45, 99, 123, 233, 6, 443, 68, 4444, 23, 7688};
-        executeAndAssertEquals(array);
-    }
-
-    @Test
-    @DisplayName("zeroes")
-    public void testMethod6() {
-        short[] array = {0, 0, 0, 0, 0};
-        executeAndAssertEquals(array);
-    }
-
-    @Test
-    @DisplayName("empty")
-    public void testMethod7() {
-        short[] array = new short[0];
-        executeAndAssertEquals(array);
-    }
-
-    @Test
-    @DisplayName("large vals")
-    public void testMethod8() {
-        short[] array = {Short.MAX_VALUE, Short.MAX_VALUE - 1, Short.MAX_VALUE / 2};
-        executeAndAssertEquals(array);
-    }
-
-    @Test
-    @DisplayName("single negative")
-    public void testMethod9() {
-        short[] array = {-1};
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new CountSort(array));
-    }
-
-    @Test
-    @DisplayName("negative with positive")
-    public void testMethod10() {
-        short[] array = {5, 3, -2, 8};
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new CountSort(array));
+        executeAndAssertEquals();
     }
 }
