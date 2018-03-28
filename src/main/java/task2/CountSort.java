@@ -49,7 +49,7 @@ public class CountSort {
         return array;                                       // 19
     }
 
-    private int checkArray(short[] array) {                             // 2
+    private int checkArray(short[] array) {                             // 1
         path.append('a');
         if (array == null || array.length == 0) {                                // 2
             path.append('b');

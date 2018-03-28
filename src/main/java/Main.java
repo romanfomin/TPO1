@@ -1,16 +1,38 @@
 import task2.CountSort;
+import task3.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        Ford ford = new Ford();
 
-//        short[] arr = {};         ab
-//        short[] arr = {4,-1};     acdfgde
-//        short[] arr = {2,1,1};    acdfgdfgdfhijklmkymkynopopoqrvwrstsuwrsux
-        short[] arr = {2,1,1};
+        List<Controller> controllers = new ArrayList<>();
+        for (int k = 0; k < 5; k++) {
+            List<Handle> handles = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                handles.add(new Handle(String.valueOf(i)));
+            }
+            controllers.add(new Controller(handles));
+        }
 
-        CountSort countSort=new CountSort();
-        short[] res = countSort.sort(arr);
+        List<Engine> engines = new ArrayList<>();
+        for(int i=0;i<6;i++){
+            engines.add(new Engine());
+        }
 
-        System.out.println(countSort.getCsr().getPath());
+        Ship ship = new Ship(controllers, engines);
+
+
+        ford.jumpTo(ship.getControllers());
+        List<Handle> guessed = ford.guessFunctionOfSome(ship.getControllers().get(0).getHandles());
+        ford.catchKnown(guessed);
+        ship.shake(ship.getEngines(),Direction.values());
+        ford.releaseHalf(guessed);
+        ship.makeSteepArc();
+        ship.turnRound();
+        ship.goTowardsRockets();
+
     }
 }
