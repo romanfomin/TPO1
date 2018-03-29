@@ -28,9 +28,9 @@ public class Main {
         ford.jumpTo(ship.getControllers());
         List<Handle> guessed = ford.guessFunctionOfSome(ship.getControllers().get(0).getHandles());
         ford.catchKnown(guessed);
-        ship.shake(ship.getEngines(),Direction.values());
-        ford.releaseHalf(guessed);
-        ship.makeSteepArc();
+        ship.startEngines(ford.getState());
+        ford.releaseHalf(guessed,ship.getState());
+        ship.makeSteepArc(ford.getState());
         ship.turnRound();
         ship.goTowardsRockets();
 
