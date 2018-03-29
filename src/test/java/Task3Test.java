@@ -136,4 +136,32 @@ public class Task3Test {
 
         Assertions.assertEquals(shipStateExpected, ship.getState());
     }
+
+    @Test
+    @DisplayName("shake if not hold")
+    public void testMethod9() {
+        ship.setState(ShipState.START);
+        shipStateExpected = ShipState.START;
+        ford.setState(FordState.START);
+
+        ship.startEngines(ford.getState());
+
+        Assertions.assertEquals(shipStateExpected, ship.getState());
+    }
+
+    @Test
+    @DisplayName("hold if not guessed")
+    public void testMethod10() {
+        ford.setState(FordState.START);
+        fordStateExpected = FordState.START;
+
+        List<Handle> handles = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            handles.add(new Handle(String.valueOf(i * 3)));
+        }
+
+        ford.catchKnown(handles);
+
+        Assertions.assertEquals(fordStateExpected, ford.getState());
+    }
 }

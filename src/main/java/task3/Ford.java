@@ -7,16 +7,18 @@ public class Ford {
     private FordState state = FordState.START;
 
     public void jumpTo(List<Controller> controllers) {
-        if(state == FordState.START){
-            state = FordState.AT_CONTROLLERS;
+        if(state != FordState.START){
+            return;
         }
+        state = FordState.AT_CONTROLLERS;
         System.out.println("Форд подскочил к пультам;");
     }
 
     public List<Handle> guessFunctionOfSome(List<Handle> handles) {
-        if(state == FordState.AT_CONTROLLERS){
-            state = FordState.GUESSED;
+        if(state != FordState.AT_CONTROLLERS){
+            return null;
         }
+        state = FordState.GUESSED;
 
         System.out.println("он смог догадаться о назначении некоторых рукояток");
         List<Handle> guessed=new ArrayList<>();
@@ -30,9 +32,10 @@ public class Ford {
     }
 
     public void catchKnown(List<Handle> handles) {
-        if(state == FordState.GUESSED){
-            state = FordState.HOLDING;
+        if(state != FordState.GUESSED){
+            return;
         }
+        state = FordState.HOLDING;
 
         System.out.println("и схватился за них.");
         for(Handle handle:handles){
@@ -44,9 +47,10 @@ public class Ford {
         if(shipState!=ShipState.SHAKE){
             return;
         }
-        if(state == FordState.HOLDING){
-            state = FordState.RELEASED_HALF;
+        if(state != FordState.HOLDING){
+            return;
         }
+        state = FordState.RELEASED_HALF;
 
         System.out.println("Форд отпустил половину рукояток");
         for(int i=0;i<handles.size()/2;i++){

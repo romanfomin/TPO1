@@ -28,9 +28,10 @@ public class Ship {
     }
 
     private void shake() {
-        if (state == ShipState.START) {
-            state = ShipState.SHAKE;
+        if (state != ShipState.START) {
+            return;
         }
+        state = ShipState.SHAKE;
 
         System.out.println("Корабль затрясло оттого, что его двигатели" +
                 " с визгом начали толкать его одновременно во всех " +
@@ -43,25 +44,28 @@ public class Ship {
         if(fordState!=FordState.RELEASED_HALF){
             return;
         }
-        if (state == ShipState.SHAKE) {
-            state = ShipState.STEEP_ARC;
+        if (state != ShipState.SHAKE) {
+            return;
         }
+        state = ShipState.STEEP_ARC;
 
         System.out.println("и корабль, описав крутую дугу,");
     }
 
     public void turnRound() {
-        if (state == ShipState.STEEP_ARC) {
-            state = ShipState.TURN_ROUND;
+        if (state != ShipState.STEEP_ARC) {
+            return;
         }
+        state = ShipState.TURN_ROUND;
 
         System.out.println("развернулся кругом");
     }
 
     public void goTowardsRockets() {
-        if (state == ShipState.TURN_ROUND) {
-            state = ShipState.GO_TOWARDS;
+        if (state != ShipState.TURN_ROUND) {
+            return;
         }
+        state = ShipState.GO_TOWARDS;
 
         System.out.println("и направился навстречу ракетам.");
     }
