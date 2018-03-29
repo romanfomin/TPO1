@@ -73,4 +73,13 @@ public class Task1Test {
         x = 10;
         Assertions.assertThrows(IllegalArgumentException.class, () -> taylor.getAcos(x, accuracy));
     }
+
+    @Test
+    @DisplayName("acos(0.96)")
+    public void testMethod8() {
+        x = 0.96;
+        expected = Math.acos(x);
+        actual = taylor.getAcos(x, accuracy);
+        Assertions.assertTrue(Math.abs(actual - expected) < accuracy);
+    }
 }

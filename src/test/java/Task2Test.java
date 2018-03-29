@@ -41,9 +41,8 @@ public class Task2Test {
         executeAndAssertEquals();
     }
 
-
     @Test
-    @DisplayName("1-6")
+    @DisplayName("1-19")
     public void testMethod3() {
         arrayActual = new short[]{2, 1, 1};
         arrayExpected = new short[]{1, 1, 2};
